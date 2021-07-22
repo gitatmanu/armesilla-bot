@@ -16,6 +16,7 @@ const phrases = [
   'El Imperio Español es la URSS del s.XVI.',
   'Semen retentum venenum est.',
   'Stalin fue un emperador de facto.',
+  'Antimascotista siempre.',
   'El 155 es poco para lo que esta chusma aldeana merece.',
   'Si el GAL no hubiese salido a la luz, no matado inocentes, y hubiese hecho su trabajo de manera más efectiva, ahora sería recordado como lo mejor que hizo Felipe González durante su mandato.',
 ]
