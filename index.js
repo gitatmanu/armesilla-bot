@@ -8,8 +8,7 @@ const queue = new Map();
 client.login(process.parsed.TOKEN);
 
 const words = {
-  'armesilla': 'https://www.youtube.com/watch?v=idh2RJtU5G8',
-
+  'armesilla': 'https://www.youtube.com/watch?v=QL5HYaVsJnw',
 }
 
 const phrases = [
@@ -22,10 +21,11 @@ const phrases = [
 ]
 
 client.on('ready', async function() {
-  const channel = await client.channels.fetch('865616567567122432').catch(console.log); // morralla channel id
+  const channel_id = '865616567567122432';
+  const channel = await client.channels.fetch(channel_id).catch(console.log);
   setInterval(function() {
     channel.send(phrases[Math.floor(Math.random() * phrases.length)]);
-  }, 100000);
+  }, 200000);
 });
 
 
