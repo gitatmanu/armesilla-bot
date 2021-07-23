@@ -72,7 +72,7 @@ function play(guild, song, queue) {
     const dispatcher = serverQueue.connection.play(ytdl(song.url))
     .on("finish", () => {
       serverQueue.songs.shift();
-      play(guild, serverQueue.songs[0]);
+      play(guild, serverQueue.songs[0], queue);
     })
     .on("error", error => console.error(error));
     dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
