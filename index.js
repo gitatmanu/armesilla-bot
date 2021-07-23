@@ -3,33 +3,36 @@ const process = require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const ytdl = require('ytdl-core');
-const queue = new Map();
-
 client.login(process.parsed.TOKEN);
+
+const queue = new Map();
+const random_phrases = require('./random_phrases.js');
+
 
 const words = {
   'armesilla': 'https://www.youtube.com/watch?v=QL5HYaVsJnw',
 }
 
-const phrases = [
-  'El animalista coherente debe defender la zoofilia.',
-  'El Imperio Español es la URSS del s.XVI.',
-  'Semen retentum venenum est.',
-  'Stalin fue un emperador de facto.',
-  'Antimascotista siempre.',
-  'El 155 es poco para lo que esta chusma aldeana merece.',
-  'Si el GAL no hubiese salido a la luz, no matado inocentes, y hubiese hecho su trabajo de manera más efectiva, ahora sería recordado como lo mejor que hizo Felipe González durante su mandato.',
-]
+// Random phrases controller
+client.on('ready', function() {
+  random_phrases.play(client);
+});
 
-client.on('ready', async function() {
-  const channel_id = '865616567567122432';
-  const channel = await client.channels.fetch(channel_id).catch(console.log);
-  setInterval(function() {
-    channel.send(phrases[Math.floor(Math.random() * phrases.length)]);
-  }, 200000);
+client.on('message', async (message) => {
+  if (message.author.bot) return;
+  
+  message.content = message.content.toLowerCase();
+  if (message.content == '/armesilla frases stop') {
+    random_phrases.stop();
+  } else if (message.content.startsWith('/armesilla ""')) {
+    var interval_in_seconds = 'convert seconds to interval';
+    random_phrases.set_interval(interval_in_seconds, client);
+  }
 });
 
 
+
+// Play Sounds
 client.on('message', async message => {
   if (message.author.bot) return;
   const serverQueue = queue.get(message.guild.id);
