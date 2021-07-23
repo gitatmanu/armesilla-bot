@@ -7,6 +7,7 @@ const words = {
 async function play_sound(message, serverQueue, song_url, queue) {
     const voiceChannel = message.member.voice.channel;
     if (!voiceChannel) return;
+
     const permissions = voiceChannel.permissionsFor(message.client.user);
     if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
       return message.channel.send(
@@ -15,8 +16,7 @@ async function play_sound(message, serverQueue, song_url, queue) {
       }
       
       let songInfo;
-      let url = song_url;
-      songInfo = await ytdl.getInfo(url);
+      songInfo = await ytdl.getInfo(song_url);
       const song = {
         title: songInfo.videoDetails.title,
         url: songInfo.videoDetails.video_url,

@@ -31,8 +31,8 @@ client.on('message', async (message) => {
 client.on('message', async message => {
   if (message.author.bot) return;
   const serverQueue = queue.get(message.guild.id);
-  
   message.content = message.content.toLowerCase();
+
   if (sounds.words.hasOwnProperty(message.content)) {
     sounds.play_sound(message, serverQueue, sounds.words[message.content], queue);
   }
