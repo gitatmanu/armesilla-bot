@@ -9,7 +9,7 @@ const phrases = [
 ]
 
 var interval_object;
-var interval = 3000;
+var interval = 30000000;
 
 function set_interval(new_interval, client) {
     interval = new_interval;
@@ -17,11 +17,19 @@ function set_interval(new_interval, client) {
 }
 
 async function play(client) {
+    var phrase;
+    var previous_phrase;
     const channel_id = client.channels.cache.find(channel => channel.name === "general").id;
     var channel = await client.channels.fetch(channel_id).catch(console.log);
 
     interval_object = setInterval(function () {
-        channel.send(phrases[Math.floor(Math.random() * phrases.length)]);
+        phrase = phrases[Math.floor(Math.random() * phrases.length)];
+
+        while (previous_phrase === phrase) {
+            phrase = phrases[Math.floor(Math.random() * phrases.length)];
+        }
+        channel.send(phrase);
+        previous_phrase = phrase;
     }, interval);
 }
 
@@ -34,8 +42,7 @@ function refresh(client) {
     play(client);
 }
 
-module.exports =
-{
+module.exports = {
     phrases,
     set_interval,
     play,
